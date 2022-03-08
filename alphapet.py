@@ -13,7 +13,7 @@ inputs = []
 for direct in folders:
     for file in listdir(source+direct):
     
-        labels.append(file)
+        labels.append(file[:])
         with open(source+direct+'/'+file, "r") as f:
             file = f.read()
             file = file.strip()
@@ -26,15 +26,12 @@ data = np.array(inputs, dtype=np.float32)
 data = data.reshape(7, 20, 11, 1)
 print(data.shape)
 print(labels)
-lenc = LabelEncoder()
-labels = lenc.fit_transform(labels)
-labels = np.array(labels)
 
 # define model for simple BI-LSTM + DNN based binary classifier
 
 model = Sequential()
 
-model.add(Conv2D(16, (2, 2), activation='relu', input_shape=data[0].shape))
+model.add(Conv2D(16, (2, 2), activation='tanh', input_shape=data[0].shape))
 model.add(Conv2D(32, (2, 2), activation='relu'))
 model.add(Flatten())
 model.add(Dense(32, activation='relu'))
