@@ -6,9 +6,8 @@ from logging import exception
 from os import listdir
 import numpy as np
 import pandas as pd
-import os 
+import os
 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 source = '/home/abdo_khattab/Documents/work/data/'
 folders = listdir(source)
@@ -21,11 +20,13 @@ for direct in folders:
         labels.append(file[:-1])
         with open(f"{source}{direct}/{file}", "r") as f:
 
-            inputs += [line.split(",") for line in [line.replace(" ", "") for line in f.read().split("\n") if line]]
+            inputs += [line.split(",") for line in [line.replace(" ", "")
+       for line in f.read().split("\n") if line]]
 
 
 data = np.array(inputs, dtype=np.float32)
 data = data.reshape(12, 5, 11, 1)
+
 
 print(data.shape)
 print(labels)
@@ -50,7 +51,7 @@ model.summary()
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
-model.fit(data, np.array(labels), epochs=400, batch_size=5)
+model.fit(data, np.array(labels), epochs=400, shuffle=True, batch_size=5)
 
 
 scores = model.evaluate(data, np.array(labels), verbose=1, batch_size=5)
