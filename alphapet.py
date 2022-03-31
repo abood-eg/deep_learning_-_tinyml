@@ -20,8 +20,7 @@ for direct in folders:
         labels.append(file[:-1])
         with open(f"{source}{direct}/{file}", "r") as f:
 
-            inputs += [line.split(",") for line in [line.replace(" ", "")
-       for line in f.read().split("\n") if line]]
+            inputs += [line.split(",") for line in [line.strip()for line in f.read().split("\n") if line]]
 
 
 data = np.array(inputs, dtype=np.float32)
