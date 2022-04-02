@@ -1,26 +1,13 @@
 # CNN model for sign language recognition
-<br></br>
 
->  *the idea of the project :*
+## The Idea 
+This project aims to use machine learning on a microcontroller to transolate hand gesture into a speech message that normal people can understand.
 
-<br></br>
-<p> this project aims to use machine learning on a microcontroller to transolate hand gesture into a speech message that normal people can understand</p>
+- Requirements
 
-* required installation
+      pip install tensorflow, sklearn, numpy, matplotlib
 
-``` bash
-pip install tensorflow
-
-pip install sklearn
-
-pip install numpy
-
-pip install matplotlib
-```
-<br></br>
->  *the todo list of the project :*
-
-<br></br>
+## ToDo
 
 * [x]  navigate your os files to get the data from files
 * [x] store the data in a 3d numpy array 
