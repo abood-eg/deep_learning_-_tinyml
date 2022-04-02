@@ -5,7 +5,7 @@ This project aims to use machine learning on a microcontroller to transolate han
 
 - Requirements
 
-      pip install tensorflow, sklearn, numpy, matplotlib
+      pip install tensorflow, sklearn, numpy, matplotlib,tensorflow-model-optimization 
 
 ## ToDo
 
@@ -14,5 +14,9 @@ This project aims to use machine learning on a microcontroller to transolate han
 * [x] reshape the data to suit the convolution layer
 * [ ] graph the data using the matplotlib liberary
 * [x] set the right parameter to the neural network to get a good model
+* [x] make a test data to test the model
+* [ ] refactor the code *DRY*
+* [x] set the pre_aware quantization so that the model knows it is to be quantized
 * [ ] convert the model to tensorflow lite micro 
 * [ ] deploy it on a micro controller *esp32*
+  

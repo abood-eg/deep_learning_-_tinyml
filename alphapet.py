@@ -1,5 +1,4 @@
-from tensorflow.keras.layers import Conv1D, Dense, MaxPooling2D, Flatten, Dropout
-from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, Dense, MaxPooling2D, Flatten, Dropout
 import tensorflow as tf
 from sklearn.preprocessing import LabelEncoder
 from logging import exception
@@ -7,7 +6,8 @@ from os import listdir
 import numpy as np
 import pandas as pd
 import os
-
+import tensorflow_model_optimization as tfmot
+from tensorflow.keras.models import Sequential
 
 source = '/home/abdo_khattab/Documents/work/train-data/'
 test_source= '/home/abdo_khattab/Documents/work/test-data/' 
@@ -53,20 +53,24 @@ test_labels=lab_encoder.fit_transform(test_labels)
 
 model = Sequential()
 
-model.add(Conv1D(32, 1, activation='relu',
-          padding='causal', input_shape=data[0].shape))
+quantized_model=tfmot.quantization.keras.quantize_model
+
+
+model.add(Conv2D(32,(2,2), activation='relu',
+          padding='valid', input_shape=data[0].shape))
 model.add(MaxPooling2D(3, (2, 2)))
-model.add(Dropout(.02))
 model.add(Flatten())
 
 model.add(Dense(32, activation='relu'))
 model.add(Dense(7, activation='softmax'))
 
+model=quantized_model(model)
+
 model.summary()
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
-model.fit(data, np.array(labels), epochs=100, shuffle=True, batch_size=11)
+model.fit(data, np.array(labels), epochs=110, shuffle=True, batch_size=11)
 
 
 scores = model.evaluate(test_data, np.array(test_labels), verbose=1, batch_size=11)
