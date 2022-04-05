@@ -16,14 +16,12 @@ from tensorflow.keras.models import Sequential
 
 
 # set the pathes to the folder wich contain the train and test data
-SOURCE = '/home/abdo_khattab/Documents/work/train-data/'
-TEST_SOURCE = '/home/abdo_khattab/Documents/work/test-data/'
+SOURCE = '/home/abdo_khattab/Documents/work/final project /data/train-data/'
+TEST_SOURCE = '/home/abdo_khattab/Documents/work/final project /data/test-data/'
 
 
 # creating a list to store the input data and the test data in it
-
 # same goes for labels
-
 inputs = []
 labels = []
 test_inputs = []
@@ -56,16 +54,13 @@ def data_conversion(inputs,labels):
     data = np.array(inputs, dtype=np.float32)
 # reshape the data so it can fit on the convolution layer of the model
     data = data.reshape(12, 5, 11, 1)
-
-    print(data.shape)
-    print(labels)
 # encode the labels using label ecoder which convert the words into numbers to fit in the neural network
     lab_encoder = LabelEncoder()
     labels = lab_encoder.fit_transform(labels)
     labels=np.array(labels,dtype=np.float32)
     return data,labels
 
-train_data=data_conversion(inputs,labels)
+train_data,train_labels=data_conversion(inputs,labels)
 # define a CNN model using conv2d which is proven to be good for our data
 model = Sequential()
 # this is called pre-aware quantization
@@ -76,7 +71,7 @@ quantized_model = tfmot.quantization.keras.quantize_model
 
 
 model.add(Conv2D(32, (2, 2), activation='relu',
-          padding='valid', input_shape=train_data[0][0].shape))
+          padding='valid', input_shape=train_data[0].shape))
 model.add(MaxPooling2D(3, (2, 2)))
 model.add(Dropout(.02))
 model.add(Flatten())
@@ -90,7 +85,7 @@ model.summary()
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
-model.fit(train_data[0],train_data[1], epochs=110, shuffle=True, batch_size=11)
+model.fit(train_data,train_labels, epochs=110, shuffle=True, batch_size=11)
 
 # now let's collect the test data by calling the fuction collect data
 
@@ -98,8 +93,8 @@ model.fit(train_data[0],train_data[1], epochs=110, shuffle=True, batch_size=11)
 collect_data(TEST_SOURCE, test_inputs, test_labels)
 # convertion the list to a numpy array
 # reshape the test data
-test_data=data_conversion(test_inputs,test_labels)
+test_data,test_labels=data_conversion(test_inputs,test_labels)
 # now to evaluate the model pass the test data to the model to evaluate the accuracy
 # and see if the model is over fitting
-scores = model.evaluate(test_data[0],test_data[1], verbose=1, batch_size=11)
+scores = model.evaluate(test_data,test_labels, verbose=1, batch_size=11)
 print('Accurracy: {}'.format(scores[1]))
