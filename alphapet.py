@@ -46,10 +46,9 @@ def collect_data(source, inputs, labels):
                 inputs += [line.split(",") for line in [line.strip()
                                                         for line in f.read().split("\n") if line]]
 
-    return inputs, labels
 
 
-# calling the function collect data
+# calling the function collect dhttps://github.com/abood-eg/deep_learning_-_tinymlata
 collect_data(SOURCE, inputs, labels)
 
 ## this function convert each of the input data and the labels into a numpy array 
