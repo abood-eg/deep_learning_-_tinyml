@@ -16,8 +16,8 @@ from tensorflow.keras.models import Sequential
 
 
 # set the pathes to the folder wich contain the train and test data
-SOURCE = '/home/abdo_khattab/Documents/work/final project /data/train-data/'
-TEST_SOURCE = '/home/abdo_khattab/Documents/work/final project /data/test-data/'
+SOURCE = 'tinyml/data/train-data/'
+TEST_SOURCE = 'tinyml/data/test-data/'
 
 
 # creating a list to store the input data and the test data in it
@@ -46,7 +46,7 @@ def collect_data(source, inputs, labels):
 
 
 
-# calling the function collect dhttps://github.com/abood-eg/deep_learning_-_tinymlata
+
 collect_data(SOURCE, inputs, labels)
 
 ## this function convert each of the input data and the labels into a numpy array 
@@ -98,3 +98,4 @@ test_data,test_labels=data_conversion(test_inputs,test_labels)
 # and see if the model is over fitting
 scores = model.evaluate(test_data,test_labels, verbose=1, batch_size=11)
 print('Accurracy: {}'.format(scores[1]))
+
