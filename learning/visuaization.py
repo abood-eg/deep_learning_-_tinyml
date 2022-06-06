@@ -3,10 +3,9 @@ import matplotlib.pyplot as plt
 
 
 
-dataset=pd.read_csv('final project /new3.csv')
+dataset=pd.read_csv('tinyml/file.csv',names=['f1','f2','f3','f4','f5','ax','ay','az','gx','gy','gz'],header=None)
 
 df=pd.DataFrame(dataset)
-df.columns=['f1','f2','f3','f4','f5','ax','ay','az','gx','gy','gz']
 print(df)
 df[df<=0]=0
 print(df)
@@ -29,3 +28,14 @@ plt.legend(['f1','f2','f3','f4','f5','ax','ay','az','gx','gy','gz'])
 
 plt.show()
 print(df['ax'].describe())
+
+def count_letter(text):
+    result={}
+    for letter in text:
+        if letter not in text:
+            result[letter]=0
+     
+        result[letter]+=1
+    return result
+
+count_letter('hello there i am using whatsapp')

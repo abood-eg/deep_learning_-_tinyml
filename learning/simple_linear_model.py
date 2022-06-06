@@ -5,7 +5,6 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import matplotlib.pyplot as plt
 
-
 X=np.array([0,1,2,3,4,5,6,7,8,9])
 
 y=np.array([0,2,4,6,8,10,12,14,16,18])
@@ -22,4 +21,4 @@ plt.xlabel=('Epoch Number')
 plt.ylabel=('Loss Magnitude')
 plt.plot(history.history['loss'])
 
-print(model.predict([30]))
+print(model.predict([-40]))

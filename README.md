@@ -19,4 +19,3 @@ This project aims to use machine learning on a microcontroller to transolate han
 * [x] set the pre_aware quantization so that the model knows it is to be quantized
 * [ ] convert the model to tensorflow lite micro 
 * [ ] deploy it on a micro controller *esp32*
-  
